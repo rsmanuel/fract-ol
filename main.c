@@ -1,14 +1,37 @@
-#include "./minilibx_mms_20200219/mlx.h"
+#include "./includes/fractol.h"
 
-int main(void)
+
+void mlx_pixel_insert(t_data *data, int x, int y, int color)
 {
-	void *mlx_ptr;
-	void *mlx_win;
-	int i;
+	char *dst;
 
-	i = 0;
-	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, 640, 360, "teste");
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
-	mlx_loop(mlx_ptr);
+int main(int argc, char **argv)
+{
+	t_struct *info;
+	t_data *data_img;
+	int validation;
+
+	info = malloc(sizeof(t_struct));
+	data_img = malloc(sizeof(t_data));
+	validation = input_validation(argv, argc, info);
+	if (validation == 1)
+	{
+		info->mlx_ptr = mlx_init();
+		data_img->img = mlx_new_image(info->mlx_ptr, info->x, info->y);
+		data_img->addr = mlx_get_data_addr(data_img->img, &data_img->bits_per_pixel, &data_img->line_length, &data_img->endian);
+		info->mlx_win = mlx_new_window(info->mlx_ptr, info->x, info->y, argv[1]);
+		mlx_put_image_to_window(info->mlx_ptr, info->mlx_win, data_img->img, 20, 20);
+		mlx_loop(info->mlx_ptr);
+	}
+	else if (validation == -1)
+	{
+		validation_fail();
+		free(info);
+		free(data_img);
+		exit(EXIT_FAILURE);
+	}
 }
