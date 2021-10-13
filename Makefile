@@ -1,5 +1,5 @@
 
-NAME =		play
+NAME =		fractol
 
 MLX_DIR = 	./minilibx_mms_20200219
 

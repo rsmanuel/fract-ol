@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include "../minilibx_mms_20200219/mlx.h"
+# include <math.h>
 
 typedef struct s_struct
 {
