@@ -8,138 +8,57 @@ void mlx_pixel_insert(t_data *data, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-void draw_line(t_data *data_img, float beginX, float endX, float beginY, float endY, int color)
-{
-	float deltaX;
-	float deltaY;
-	float len;
-	float startX;
-	float startY;
-
-	// calculalte 2D direction (len X & len Y)
-	deltaX = endX - beginX;
-	deltaY = endY - beginY;
-
-	// calculate len of line
-	len = sqrt((deltaY * deltaY) + (deltaX * deltaX));
-
-	// starting pixels
-	startX = beginX;
-	startY = beginY;
-
-	// making the distance between pixel_put smaller
-	deltaX = deltaX / len;
-	deltaY = deltaY / len;
-
-	while (len > 0)
-	{
-		mlx_pixel_insert(data_img, startX, startY, color);
-		startX = startX + deltaX;
-		startY = startY + deltaY;
-		len--;
-	}
-}	
-
-void draw_square(t_data *data_img, float beginX, float beginY, float size, int color)
-{
-	int i;
-
-	i = 0;
-	while (i <= size)
-	{
-		// drawing lines len = beginX + size, with Y + 1 
-		draw_line(data_img, beginX, beginX + size, beginY + i, beginY + i, color);
-		i++;
-	}
-}
-
-/*void mandelbrot_set(t_data *data_img, t_struct *info)
-{
-	double min_re;
-	double max_re;
-	double min_im;
-	double max_im;
-	double re_factor;
-	double im_factor;
-	double c_im;
-	double c_re;
-	int y;
-	int x;
-
-	min_re = -2.0;
-	max_re = 1,0;
-	min_im = -1,2;
-	max_im = min_im + (max_re - min_re) * (info->y / info->x);
-	re_factor = (max_re - min_re) / (info->x - 1);
-	im_factor = (max_im - min_im) / (info->y - 1);
-	y = 0;
-	while (y < info->y)
-	{
-		c_im = max_im - y * im_factor;
-		x = 0;
-		while (x < info->x)
-		{
-			c_re = min_re + x * re_factor;
-
-		}
-	}
-
-}*/
-
 void mandelbrot_set(t_data *data_img, t_struct *info)
 {
-	int min_re;
-	int max_re;
-	int min_im;
-	int max_im;
-	double a;
-	double new_a;
-	double temp_a;
-	double temp_b;
-	double new_b;
-	double b;
 	int x;
 	int y;
-	int iterations;
+	double c_re;
+	double c_im;
+	double z_im;
+	double z_re;
+	double temp_z_re;
+	double temp_z_im;
+	int isInside;
+	int n;
 
-	// scaling between pixel coordinates and complex numbers 
-	min_re = -2;
-	max_re = 2;
-	min_im = -2;
-	max_im = 2;
 	x = 0;
 	y = 0;
-	while (x < info->x)
+	n = 0;
+	isInside = 0;
+	while (y < info->y)
 	{
-		y = 0;
-		while (y < info->y)
+		c_im = MAX_IM - y * (MAX_IM - MIN_IM) / (info->y - 1);
+		while (x < info->x)
 		{
-			iterations = 0;
-			a = min_re + x * (max_re - min_re) / (info->x);
-			b = max_im - y * (max_im - min_im) / (info->y);
-			temp_a = a;
-			temp_b = b;
-			while (iterations < 100)
+			c_re = MIN_RE + x * (MAX_RE - MIN_RE) / (info->x - 1);
+			z_re = c_re;
+			z_im = c_im;
+			n = 0;
+			isInside = 1;
+			while (n < MAXITERATIONS)
 			{
-				new_a = (a * a) - (b * b);
-				new_b = 2 * a * b;
-				a = new_a + temp_a;
-				b = new_b + temp_b;
-				if (fabs(a + b) > 2)
+				temp_z_re = z_re * z_re;
+				temp_z_im = z_im * z_im;
+				n++;
+				//printf("%f\n", temp_z_re + temp_z_im);
+				if (temp_z_re + temp_z_im > 4.000000)
 				{
+					printf("1");
+					isInside = 0;
 					break ;
 				}
-				iterations++;
+				z_re = temp_z_re - temp_z_im + c_re;
+				z_im = 2 * z_re * z_im + c_im;
 			}
-			if (iterations == 100)
-				mlx_pixel_insert(data_img,  x, y, 0xFFFFFF);
-			y++;
+			if (isInside == 1)
+			{
+				mlx_pixel_insert(data_img, x, y, 0xFFFFFF);
+			}
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
-
-
 
 int main(int argc, char **argv)
 {
