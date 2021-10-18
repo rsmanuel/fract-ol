@@ -1,9 +1,11 @@
-#ifndef MINITALK_H
+# ifndef MINITALK_H
 # define MINITALK_H
 
 # include "../libft/libft.h"
 # include "../minilibx_mms_20200219/mlx.h"
 # include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_struct
 {
