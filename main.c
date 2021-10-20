@@ -27,6 +27,7 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 	isInside = 0;
 	while (y < info->y)
 	{
+		x = 0;
 		c_im = MAX_IM - y * (MAX_IM - MIN_IM) / (info->y - 1);
 		while (x < info->x)
 		{
@@ -34,25 +35,31 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 			z_re = c_re;
 			z_im = c_im;
 			n = 0;
-			isInside = 1;
 			while (n < MAXITERATIONS)
 			{
+				isInside = 1;
 				temp_z_re = z_re * z_re;
 				temp_z_im = z_im * z_im;
-				n++;
-				//printf("%f\n", temp_z_re + temp_z_im);
-				if (temp_z_re + temp_z_im > 4.000000)
+				if ((temp_z_re + temp_z_im) > 4.000000)
 				{
-					printf("1");
+					if (n >= 0 && n <= (MAXITERATIONS / 2))
+					{
+						mlx_pixel_insert(data_img, x, y, 0x00FF1100);
+					}
+					else if (n > (MAXITERATIONS / 2) && n <= MAXITERATIONS)
+					{
+						mlx_pixel_insert(data_img, x, y, 0xFFFFFF);
+					}
 					isInside = 0;
 					break ;
 				}
-				z_re = temp_z_re - temp_z_im + c_re;
 				z_im = 2 * z_re * z_im + c_im;
+				z_re = temp_z_re - temp_z_im + c_re;
+				n++;
 			}
 			if (isInside == 1)
 			{
-				mlx_pixel_insert(data_img, x, y, 0xFFFFFF);
+				mlx_pixel_insert(data_img, x, y, 0x000000);
 			}
 			x++;
 		}
