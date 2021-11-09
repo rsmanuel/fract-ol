@@ -7,7 +7,7 @@ int input_validation(char **str, int argc, t_struct *info)
         return (-1);
     else if(argc == 5 && !ft_strncmp(str[1], "Mandelbrot", 10))
     {
-        if ((ft_atoi(str[2]) <= 1920 && ft_atoi(str[2]) >= 640) && (ft_atoi(str[3]) <= 1080 && ft_atoi(str[3]) >= 480))
+        if ((ft_atoi(str[2]) <= 3000 && ft_atoi(str[2]) >= 0) && (ft_atoi(str[3]) <= 3000 && ft_atoi(str[3]) >= 0))
         {
             info->x = ft_atoi(str[2]);
             info->y = ft_atoi(str[3]);

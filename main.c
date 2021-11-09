@@ -8,10 +8,16 @@ void mlx_pixel_insert(t_data *data, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 void mandelbrot_set(t_data *data_img, t_struct *info)
 {
 	int x;
 	int y;
+	double MAX_IM;
 	double c_re;
 	double c_im;
 	double z_im;
@@ -21,6 +27,7 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 	int isInside;
 	int n;
 
+	MAX_IM = MIN_IM + (MAX_RE - MIN_RE) * info->y / info->x;
 	x = 0;
 	y = 0;
 	n = 0;
@@ -42,14 +49,8 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 				temp_z_im = z_im * z_im;
 				if ((temp_z_re + temp_z_im) > 4.000000)
 				{
-					if (n >= 0 && n <= (MAXITERATIONS / 2))
-					{
-						mlx_pixel_insert(data_img, x, y, 0x00FF1100);
-					}
-					else if (n > (MAXITERATIONS / 2) && n <= MAXITERATIONS)
-					{
-						mlx_pixel_insert(data_img, x, y, 0xFFFFFF);
-					}
+					mlx_pixel_insert(data_img, x, y, create_trgb(0, 5 * (n),
+							3 * (n) + 50, 0.2 * (n + 2)));
 					isInside = 0;
 					break ;
 				}

@@ -8,9 +8,8 @@
 # include <stdlib.h>
 # define MIN_RE -2.0 
 # define MAX_RE 1.0
-# define MAX_IM 1.2
 # define MIN_IM -1.2
-# define MAXITERATIONS 30
+# define MAXITERATIONS 50
 
 typedef struct s_struct
 {
