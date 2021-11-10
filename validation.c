@@ -1,6 +1,5 @@
 #include "./includes/fractol.h"
 
-// ./fractol <fractal> [x] [y] <color>
 int input_validation(char **str, int argc, t_struct *info)
 {
     if (argc != 5)

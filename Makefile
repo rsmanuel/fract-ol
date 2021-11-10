@@ -13,6 +13,8 @@ CFLAGS =	-Wall -Werror -Wextra
 
 SRCS =		main.c \
 		validation.c \
+		mandelbrot.c \
+		aux_fts.c \
 		libft/ft_putcolor_fd.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_strncmp.c \
