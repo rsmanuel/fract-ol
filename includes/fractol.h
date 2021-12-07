@@ -21,7 +21,7 @@
 
 # define MIN_RE	-2.0
 # define MAX_IM 1.2
-# define STEP 0.002
+# define STEP 0.003
 # define MAXITERATIONS 50
 
 typedef struct s_struct
