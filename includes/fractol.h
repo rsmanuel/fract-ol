@@ -21,8 +21,8 @@
 
 # define MIN_RE	-2.0
 # define MAX_IM 1.2
-# define STEP 0.003
-# define MAXITERATIONS 50
+# define STEP 0.002
+# define MAXITERATIONS 255
 
 typedef struct s_struct
 {
@@ -34,6 +34,7 @@ typedef struct s_struct
 	char	*color;
 	int 	picked_color;
 	int		precision;
+	int		tmp_iterations;
 }	t_struct;
 
 typedef struct s_data
@@ -48,8 +49,9 @@ typedef struct s_data
 int		input_validation(char **str, int argc, t_struct *info);
 void	validation_fail(void);
 void	mandelbrot_set(t_data *data_img, t_struct *info);
+void	julia_set(t_data *data_img, t_struct *info);
 void	mlx_pixel_insert(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
-int 	return_colors(int iterations, char *color);
+int 	return_colors(int iterations, char *color, t_struct *info);
 
 #endif
