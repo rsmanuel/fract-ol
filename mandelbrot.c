@@ -16,8 +16,6 @@ int iterate_mandelbrot(double c_re, double c_im)
 		tmp_z_re = (z_re * z_re) - (z_im * z_im) + c_re;
 		z_im = 2 * (z_re * z_im) + c_im;
 		z_re = tmp_z_re;
-		if (sqrt(z_re * z_re + z_im * z_im) < 2)
-			info->tmp
 		if (sqrt(z_re * z_re + z_im * z_im) > 2)
 			return(iterations);
 	}	
@@ -34,7 +32,6 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 	int iterations;
 
 	y = 0;
-	info->tmp_iterations = 0;
 	while (y < info->y)
 	{
 		x = 0;
@@ -43,7 +40,7 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 		{
 			c_re = x * STEP + MIN_RE;
 			iterations = iterate_mandelbrot(c_re, c_im);
-			info->picked_color = return_colors(iterations, info->color, info);
+			info->picked_color = return_colors(iterations, info->color);
 			mlx_pixel_insert(data_img, x, y, info->picked_color);
 			x++;
 		}

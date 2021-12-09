@@ -36,13 +36,8 @@ void julia_set(t_data *data_img, t_struct *info)
 		{
 			z_re = x * STEP + MIN_RE;
 			iterations = iterate_julia(z_re, z_im, -0.232 , -0.684);
-			if(iterations == MAXITERATIONS)
-				mlx_pixel_insert(data_img, x, y, create_trgb(0, sqrt(z_re + z_re - z_im * z_im), sin(z_re * z_re + z_im * z_im) * 120, 12 * sqrt(z_re * z_re + z_im * z_im)));
-			else 
-			{
-				info->picked_color = return_colors(iterations, info->color, info);
-				mlx_pixel_insert(data_img, x, y, info->picked_color);
-			}
+			info->picked_color = return_colors(iterations, info->color);
+			mlx_pixel_insert(data_img, x, y, info->picked_color);
 			x++;
 		}
 		y++;

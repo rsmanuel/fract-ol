@@ -21,24 +21,16 @@ void	mlx_pixel_insert(t_data *data, int x, int y, int color)
 }
 
 
-int return_colors(int iterations, char *color, t_struct *info)
+int return_colors(int iterations, char *color)
 {
+	if (iterations == MAXITERATIONS)
+		return (0);
 	if (!ft_strncmp(color, "red", 3))
 		return(create_trgb(0, 5.1 * iterations , 0, 0));
 	else if (!ft_strncmp(color, "green", 5))
 		return(create_trgb(0, 0, 5.1 * iterations, 0));
 	else if (!ft_strncmp(color, "blue", 4))
-	{
-		if (iterations == MAXITERATIONS)
-		{
-			printf("%d\n", info->tmp_iterations);
-			return(create_trgb(info->tmp_iterations, 0, 255, 0));
-		}
-		else
-		{
-			return(create_trgb(0, 0, 0, 255 - iterations * 10));
-		}
-	}
+		return(create_trgb(1 * iterations, 0, 0, 255 / iterations));
 	else if (!ft_strncmp(color, "crazy", 5))
 	{
 		if (iterations > 0 && iterations <= 12)
