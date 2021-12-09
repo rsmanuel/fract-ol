@@ -23,7 +23,7 @@ int iterate_mandelbrot(double c_re, double c_im)
 	return (iterations);
 }
 
-void mandelbrot_set(t_data *data_img, t_struct *info)
+void mandelbrot_set(t_struct *info)
 {
 	double c_re;
 	double c_im;
@@ -32,16 +32,16 @@ void mandelbrot_set(t_data *data_img, t_struct *info)
 	int iterations;
 
 	y = 0;
-	while (y < info->y)
+	while (y < Y)
 	{
 		x = 0;
 		c_im = MAX_IM - y * STEP;
-		while (x < info->x)
+		while (x < X)
 		{
 			c_re = x * STEP + MIN_RE;
 			iterations = iterate_mandelbrot(c_re, c_im);
 			info->picked_color = return_colors(iterations, info->color);
-			mlx_pixel_insert(data_img, x, y, info->picked_color);
+			mlx_pixel_insert(info, x , y);
 			x++;
 		}
 		y++;

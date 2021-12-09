@@ -12,42 +12,47 @@
 
 #include "./includes/fractol.h"
 
-void	start_window(t_struct *info, t_data *data_img, char **argv)
+int key_event(int button, t_struct *params)
+{
+	t_struct *info = params;
+	if (button == 53)
+	{
+		mlx_destroy_image(info->mlx_ptr, info->mlx_win);
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
+}
+
+void	start_window(t_struct *info, char **argv)
 {
 	info->mlx_ptr = mlx_init();
-	info->mlx_win = mlx_new_window(info->mlx_ptr, info->x,
-			info->y, argv[1]);
-	data_img->img = mlx_new_image(info->mlx_ptr, info->x, info->y);
-	data_img->addr = mlx_get_data_addr(data_img->img,
-			&data_img->bits_per_pixel, &data_img->line_length,
-			&data_img->endian);
-	mandelbrot_set(data_img, info);
+	info->mlx_win = mlx_new_window(info->mlx_ptr, X,
+			Y, argv[1]);
+	info->img = mlx_new_image(info->mlx_ptr, X, Y);
+	info->addr = mlx_get_data_addr(info->img,
+			&info->bits_per_pixel, &info->line_length,
+			&info->endian);
+	mandelbrot_set(info);
 	mlx_put_image_to_window(info->mlx_ptr, info->mlx_win,
-		data_img->img, 0, 0);
+		info->img, 0, 0);
+	mlx_key_hook(info->mlx_win, &key_event, info);
 	mlx_loop(info->mlx_ptr);
 }
 
 int	main(int argc, char **argv)
 {
-	t_struct	*info;
-	t_data		*data_img;
+	t_struct	info;
 	int			validation;
-
-	info = malloc(sizeof(t_struct));
-	data_img = malloc(sizeof(t_data));
-	validation = input_validation(argv, argc, info);
+	;
+	validation = input_validation(argv, argc, &info);
 	if (validation == 1)
 	{
-		start_window(info, data_img, argv);
-		free(info);
-		free(data_img);
+		start_window(&info, argv);
 		exit(EXIT_SUCCESS);
 	}
 	else if (validation == -1)
 	{
 		validation_fail();
-		free(info);
-		free(data_img);
 		exit(EXIT_FAILURE);
 	}
 }

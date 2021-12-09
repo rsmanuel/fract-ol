@@ -19,7 +19,7 @@ int iterate_julia(double z_re, double z_im, double c_re, double c_im)
 	return (iterations);
 }
 
-void julia_set(t_data *data_img, t_struct *info)
+void julia_set(t_struct *info)
 {
     double z_re;
 	double z_im;
@@ -28,16 +28,16 @@ void julia_set(t_data *data_img, t_struct *info)
 	int iterations;
 
 	y = 0;
-	while (y < info->y)
+	while (y < Y)
 	{
 		x = 0;
 		z_im = MAX_IM - y * STEP;
-		while (x < info->x)
+		while (x < X)
 		{
 			z_re = x * STEP + MIN_RE;
 			iterations = iterate_julia(z_re, z_im, -0.232 , -0.684);
 			info->picked_color = return_colors(iterations, info->color);
-			mlx_pixel_insert(data_img, x, y, info->picked_color);
+			mlx_pixel_insert(info, x, y);
 			x++;
 		}
 		y++;
