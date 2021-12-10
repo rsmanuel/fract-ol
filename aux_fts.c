@@ -6,12 +6,12 @@
 /*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:35:59 by rmanuel           #+#    #+#             */
-/*   Updated: 2021/12/10 15:12:44 by rmanuel          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:12:03 by rmanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/fractol.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
 	{

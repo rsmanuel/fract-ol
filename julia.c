@@ -1,9 +1,21 @@
-#include "./includes/fractol.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   julia.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 18:14:20 by rmanuel           #+#    #+#             */
+/*   Updated: 2021/12/10 18:16:29 by rmanuel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int iterate_julia(double z_re, double z_im, double c_re, double c_im)
+include "./includes/fractol.h"
+
+int	iterate_julia(double z_re, double z_im, double c_re, double c_im)
 {
-    int iterations;
-	double tmp_z_re;
+	int		iterations;
+	double	tmp_z_re;
 
 	tmp_z_re = 0;
 	iterations = 0;
@@ -13,19 +25,18 @@ int iterate_julia(double z_re, double z_im, double c_re, double c_im)
 		z_im = 2 * (z_re * z_im) + c_im;
 		z_re = tmp_z_re;
 		if (sqrt(z_re * z_re + z_im * z_im) > 2)
-			return(iterations);
-	}	
-
+			return (iterations);
+	}
 	return (iterations);
 }
 
-void julia_set(t_struct *info)
+void	julia_set(t_struct *info)
 {
-    double z_re;
-	double z_im;
-	double x;
-	double y;
-	int iterations;
+	double	z_re;
+	double	z_im;
+	double	x;
+	double	y;
+	int		iterations;
 
 	y = 0;
 	while (y < Y)

@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 18:18:32 by rmanuel           #+#    #+#             */
+/*   Updated: 2021/12/10 18:21:56 by rmanuel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/fractol.h"
 
-int iterate_mandelbrot(double c_re, double c_im)
+int	iterate_mandelbrot(double c_re, double c_im)
 {
-	int iterations;
-	double z_re;
-	double z_im;
-	double tmp_z_re;
+	int		iterations;
+	double	z_re;
+	double	z_im;
+	double	tmp_z_re;
 
 	z_re = 0;
 	z_im = 0;
@@ -17,19 +29,18 @@ int iterate_mandelbrot(double c_re, double c_im)
 		z_im = 2 * (z_re * z_im) + c_im;
 		z_re = tmp_z_re;
 		if (sqrt(z_re * z_re + z_im * z_im) > 2)
-			return(iterations);
-	}	
-
+			return (iterations);
+	}
 	return (iterations);
 }
 
-void mandelbrot_set(t_struct *info)
+void	mandelbrot_set(t_struct *info)
 {
-	double c_re;
-	double c_im;
-	double x;
-	double y;
-	int iterations;
+	double	c_re;
+	double	c_im;
+	double	x;
+	double	y;
+	int		iterations;
 
 	y = 0;
 	while (y < Y)
@@ -41,7 +52,7 @@ void mandelbrot_set(t_struct *info)
 			c_re = x * info->step + info->min_re;
 			iterations = iterate_mandelbrot(c_re, c_im);
 			info->picked_color = return_colors(iterations, info->color);
-			mlx_pixel_insert(info, x , y);
+			mlx_pixel_insert(info, x, y);
 			x++;
 		}
 		y++;

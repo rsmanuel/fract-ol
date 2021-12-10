@@ -6,7 +6,7 @@
 /*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:44:50 by rmanuel           #+#    #+#             */
-/*   Updated: 2021/11/10 17:44:17 by rmanuel          ###   ########.fr       */
+/*   Updated: 2021/12/10 18:33:38 by rmanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ typedef struct s_struct
 	void	*mlx_win;
 	char	fractal;
 	char	*color;
-	int 	picked_color;
+	int		picked_color;
 	double	min_re;
 	double	max_im;
-	double 	j_c_re;
+	double	j_c_re;
 	double	j_c_im;
 	double	step;
 	void	*img;
@@ -48,9 +48,9 @@ void	mandelbrot_set(t_struct *info);
 void	julia_set(t_struct *info);
 void	mlx_pixel_insert(t_struct *info, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
-int 	return_colors(int iterations, char *color);
+int		return_colors(int iterations, char *color);
 int		key_event(int button, t_struct *params);
-//int		mouse_event(int button, int x, int y, t_struct *params);
+int		mouse_event(int button, int x, int y, t_struct *params);
 void	start_window(t_struct *info);
 int		ft_strcmp(const char *s1, const char *s2);
 
