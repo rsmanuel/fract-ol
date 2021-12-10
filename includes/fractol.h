@@ -19,20 +19,22 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define MIN_RE	-2.0
-# define MAX_IM 1.2
-# define STEP 0.002
 # define MAXITERATIONS 50
-# define X 2000
+# define X 1900
 # define Y 1200
 
 typedef struct s_struct
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
-	char	*fractal;
+	char	fractal;
 	char	*color;
 	int 	picked_color;
+	double	min_re;
+	double	max_im;
+	double 	j_c_re;
+	double	j_c_im;
+	double	step;
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -40,12 +42,16 @@ typedef struct s_struct
 	int		endian;
 }	t_struct;
 
-int		input_validation(char **str, int argc, t_struct *info);
+int		input_validation(char **str, int argc);
 void	validation_fail(void);
 void	mandelbrot_set(t_struct *info);
 void	julia_set(t_struct *info);
 void	mlx_pixel_insert(t_struct *info, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
 int 	return_colors(int iterations, char *color);
+int		key_event(int button, t_struct *params);
+//int		mouse_event(int button, int x, int y, t_struct *params);
+void	start_window(t_struct *info);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

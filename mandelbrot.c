@@ -35,10 +35,10 @@ void mandelbrot_set(t_struct *info)
 	while (y < Y)
 	{
 		x = 0;
-		c_im = MAX_IM - y * STEP;
+		c_im = info->max_im - y * info->step;
 		while (x < X)
 		{
-			c_re = x * STEP + MIN_RE;
+			c_re = x * info->step + info->min_re;
 			iterations = iterate_mandelbrot(c_re, c_im);
 			info->picked_color = return_colors(iterations, info->color);
 			mlx_pixel_insert(info, x , y);

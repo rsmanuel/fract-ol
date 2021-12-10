@@ -16,10 +16,14 @@ SRCS =		main.c \
 		mandelbrot.c \
 		julia.c \
 		aux_fts.c \
+		hooks.c \
 		libft/ft_putcolor_fd.c \
 		libft/ft_putstr_fd.c \
 		libft/ft_strncmp.c \
-		libft/ft_atoi.c
+		libft/ft_atoi.c \
+		libft/ft_strdup.c \
+		libft/ft_strlcpy.c \
+		libft/ft_strlen.c
 
 OBJS =		${SRCS:.c=.o} 
 

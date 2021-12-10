@@ -31,11 +31,11 @@ void julia_set(t_struct *info)
 	while (y < Y)
 	{
 		x = 0;
-		z_im = MAX_IM - y * STEP;
+		z_im = info->max_im - y * info->step;
 		while (x < X)
 		{
-			z_re = x * STEP + MIN_RE;
-			iterations = iterate_julia(z_re, z_im, -0.232 , -0.684);
+			z_re = x * info->step + info->min_re;
+			iterations = iterate_julia(z_re, z_im, info->j_c_re, info->j_c_im);
 			info->picked_color = return_colors(iterations, info->color);
 			mlx_pixel_insert(info, x, y);
 			x++;

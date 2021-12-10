@@ -12,47 +12,75 @@
 
 #include "./includes/fractol.h"
 
-int key_event(int button, t_struct *params)
+void init_julia_c(char **str, t_struct *info)
 {
-	t_struct *info = params;
-	if (button == 53)
+	if (info->fractal == 'M')
 	{
-		mlx_destroy_image(info->mlx_ptr, info->mlx_win);
-		exit(EXIT_SUCCESS);
+		info->color = str[2];
+		return ;
 	}
-	return (0);
+	else if (info->fractal == 'J')
+	{
+		info->color = str[3];
+		if (str[2][0] == '1')
+		{
+			info->j_c_re = -0.835;
+			info->j_c_im = 0.2321;
+		}
+		else if(str[2][0] == '2')
+		{
+			info->j_c_re = 0;
+			info->j_c_im = -0.8;
+		}
+	}
 }
 
-void	start_window(t_struct *info, char **argv)
+void init_structs(t_struct *info, char **str)
 {
-	info->mlx_ptr = mlx_init();
+	char *title;
+
+	title = NULL;
+    info->fractal = str[1][0];
+	if (info->fractal == 'M')
+		title = "Mandelbrot";
+	else if (info->fractal == 'J')
+		title = "Julia";
+    info->step = 0.002;
+    info->max_im = 1.2;
+    info->min_re = -2.0;
+    info->mlx_ptr = mlx_init();
 	info->mlx_win = mlx_new_window(info->mlx_ptr, X,
-			Y, argv[1]);
+			Y, title);
 	info->img = mlx_new_image(info->mlx_ptr, X, Y);
 	info->addr = mlx_get_data_addr(info->img,
 			&info->bits_per_pixel, &info->line_length,
 			&info->endian);
-	mandelbrot_set(info);
+	init_julia_c(str, info);
+}
+
+void	start_window(t_struct *info)
+{
+	if (info->fractal == 'M')
+		mandelbrot_set(info);
+	else if (info->fractal == 'J')
+		julia_set(info);
 	mlx_put_image_to_window(info->mlx_ptr, info->mlx_win,
 		info->img, 0, 0);
-	mlx_key_hook(info->mlx_win, &key_event, info);
-	mlx_loop(info->mlx_ptr);
 }
 
 int	main(int argc, char **argv)
 {
 	t_struct	info;
-	int			validation;
-	;
-	validation = input_validation(argv, argc, &info);
-	if (validation == 1)
-	{
-		start_window(&info, argv);
-		exit(EXIT_SUCCESS);
-	}
-	else if (validation == -1)
+
+	if (input_validation(argv, argc) == -1)
 	{
 		validation_fail();
 		exit(EXIT_FAILURE);
 	}
+	init_structs(&info, argv);
+	//mlx_mouse_hook(info->mlx_win, &mouse_event, info);
+	mlx_key_hook(info.mlx_win, &key_event, &info);
+	start_window(&info);
+	mlx_loop(info.mlx_ptr);
+	exit(EXIT_SUCCESS);
 }

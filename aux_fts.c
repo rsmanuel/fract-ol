@@ -6,10 +6,20 @@
 /*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:35:59 by rmanuel           #+#    #+#             */
-/*   Updated: 2021/11/10 17:35:02 by rmanuel          ###   ########.fr       */
+/*   Updated: 2021/12/10 15:12:44 by rmanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/fractol.h"
+
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
 
 void	mlx_pixel_insert(t_struct *info, int x, int y)
 {
@@ -22,18 +32,18 @@ void	mlx_pixel_insert(t_struct *info, int x, int y)
 	*(unsigned int *)pixel = color;
 }
 
-
-int return_colors(int iterations, char *color)
+int	return_colors(int iterations, char *color)
 {
 	if (iterations == MAXITERATIONS)
 		return (0);
 	if (!ft_strncmp(color, "red", 3))
-		return(create_trgb(0, 6 * iterations , 0, 0));
+		return (create_trgb(0, 6 * iterations, 0, 0));
 	else if (!ft_strncmp(color, "green", 5))
-		return(create_trgb(0, 0, 6 * iterations, 0));
+		return (create_trgb(0, 0, 6 * iterations, 0));
 	else if (!ft_strncmp(color, "blue", 4))
-		return(create_trgb(0, 0, 0,  6 * iterations));
-
+		return (create_trgb(0, 0, 0, 6 * iterations));
+	else if (!ft_strncmp(color, "white", 5))
+		return (create_trgb(0, 6 * iterations, 6 * iterations, 6 * iterations));
 	return (0);
 }
 
