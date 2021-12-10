@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-include "./includes/fractol.h"
+#include "./includes/fractol.h"
 
 int	iterate_julia(double z_re, double z_im, double c_re, double c_im)
 {
