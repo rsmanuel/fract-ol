@@ -20,9 +20,6 @@ void	zoom(t_struct *info, int button, int x, int y)
 		temp_step = info->step / 1.05;
 	if (button == 5)
 		temp_step = info->step * 1.05;
-	info->max_im = info->max_im + (temp_step - info->step) * (double)x;
-	info->min_re = info->min_re + (info->step - temp_step) * (double)y;
-	info->step = temp_step;
 	start_window(info);
 }
 
