@@ -6,7 +6,7 @@
 /*   By: rmanuel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:22:07 by rmanuel           #+#    #+#             */
-/*   Updated: 2021/12/10 18:30:10 by rmanuel          ###   ########.fr       */
+/*   Updated: 2021/12/13 15:49:46 by rmanuel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	validation_fail(void)
 	ft_putcolor_fd(ANSI_COLOR_RED, "Invalid Arguments\n\n", 1);
 	ft_putcolor_fd(ANSI_COLOR_CYAN, "Please use this format: ", 1);
 	ft_putcolor_fd(ANSI_COLOR_GREEN, "./fractol <fractal> <option", 1);
-	ft_putcolor_ds(ANSI_COLOR_GREEN, " (only julia set)> <color>\n\n", 1);
+	ft_putcolor_fd(ANSI_COLOR_GREEN, " (only julia set)> <color>\n\n", 1);
 	ft_putcolor_fd(ANSI_COLOR_CYAN, "Available Arguments:\n\n", 1);
 	ft_putcolor_fd(ANSI_COLOR_CYAN, "\tfractal: ", 1);
 	ft_putcolor_fd(ANSI_COLOR_RESET, "\t 'M' -> Mandelbrot, 'J' -> Julia\n", 1);
